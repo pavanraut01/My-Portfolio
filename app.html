@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Website</title>
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="navbar">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button id="themeToggle">Light / Dark Mode</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Home Section -->
+    <section id="home" class="section">
+      <h1>Welcome to My Portfolio</h1>
+      <p>Hi! I'm Pavan Raut, a passionate developer. Explore my work below!</p>
+      <img src="profile.jpg" alt="Your Photo" class="profile-pic">
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="section">
+      <h2>About Me</h2>
+      <p>I am a software developer with experience in HTML, CSS, JavaScript, and React.js. I enjoy building dynamic and responsive websites.</p>
+      <h3>Skills</h3>
+      <ul>
+        <li>HTML, CSS, JavaScript</li>
+        <li>React.js, Node.js</li>
+        <li>Git, GitHub, Responsive Design</li>
+      </ul>
+      <img src="avatar.png" alt="Avatar" class="avatar">
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Project 1</h3>
+          <p>A description of Project 1.</p>
+          <a href="#" target="_blank">Live Demo</a> | <a href="#" target="_blank">Code</a>
+          <img src="project1.jpg" alt="Project 1 Screenshot">
+        </div>
+        <div class="project-card">
+          <h3>Project 2</h3>
+          <p>A description of Project 2.</p>
+          <a href="#" target="_blank">Live Demo</a> | <a href="#" target="_blank">Code</a>
+          <img src="project2.jpg" alt="Project 2 Screenshot">
+        </div>
+        <div class="project-card">
+          <h3>Project 3</h3>
+          <p>A description of Project 3.</p>
+          <a href="#" target="_blank">Live Demo</a> | <a href="#" target="_blank">Code</a>
+          <img src="project3.jpg" alt="Project 3 Screenshot">
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+      <p id="thankYouMessage" class="hidden">Thank you for your message!</p>
+    </section>
+  </main>
+
+  <script>
+    // Form Validation and Popup Message
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent form submission
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      const thankYouMessage = document.getElementById('thankYouMessage');
+
+      // Validate Name: Ensure it's not empty
+      if (name.trim() === '') {
+        alert('Please enter your name.');
+        return;
+      }
+
+      // Validate Email: Ensure it's a valid email format
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      // Validate Message: Ensure it's not empty
+      if (message.trim() === '') {
+        alert('Please enter a message.');
+        return;
+      }
+
+      // Display Thank You Message
+      thankYouMessage.style.display = 'block';
+
+      // Optionally, clear the form after submission
+      document.getElementById('contactForm').reset();
+
+      // Save form data temporarily using localStorage
+      localStorage.setItem('formData', JSON.stringify({ name, email, message }));
+    });
+
+    // Light / Dark Mode Toggle
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const isDarkMode = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    });
+
+    // Apply Theme Based on Local Storage
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>
